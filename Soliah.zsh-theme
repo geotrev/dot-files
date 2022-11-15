@@ -1,3 +1,5 @@
+# file destination: ~/.oh-my-zsh/themes/Soliah.zsh-theme
+
 # KEEP ORIGINAL:
 # PROMPT='%{$fg[blue]%}%n%{$reset_color%} on %{$fg[red]%}%M%{$reset_color%} in %{$fg[blue]%}%~%b%{$reset_color%}$(git_time_since_commit)$(check_git_prompt_info)  
 # $ '
