@@ -1,51 +1,33 @@
 #!/bin/bash
 
-function install_fira() {
-  echo "Installing Fira Code..."
+create_symlinks() {
+    # Get the directory in which this script lives.
+    script_dir=$(dirname "$(readlink -f "$0")")
 
-  fonts_dir="${HOME}/.local/share/fonts"
-  if [ ! -d "${fonts_dir}" ]; then
-      echo "mkdir -p $fonts_dir"
-      mkdir -p "${fonts_dir}"
-  else
-      echo "Found fonts dir $fonts_dir"
-  fi
+    # Get a list of all files in this directory that start with a dot.
+    files=$(find -maxdepth 1 -type f -name ".*")
 
-  version=5.2
-  zip=Fira_Code_v${version}.zip
-  curl --fail --location --show-error https://github.com/tonsky/FiraCode/releases/download/${version}/${zip} --output ${zip}
-  unzip -o -q -d ${fonts_dir} ${zip}
-  rm ${zip}
-
-  echo "fc-cache -f"
-  fc-cache -f
-
-  echo "Fira Code install"
+    # Create a symbolic link to each file in the home directory.
+    for file in $files; do
+        name=$(basename $file)
+        echo "Creating symlink to $name in home directory."
+        rm -rf ~/$name
+        ln -s $script_dir/$name ~/$name
+    done
 }
 
-function install_theme() {
-  echo "Installing Soliah theme..."
-  omz_dir="${HOME}/.oh-my-zsh"
+create_symlinks
 
-  if [ ! -d "${omz_dir}" ]; then
-    mv -f .soliah.zsh-theme $omz_dir/themes/Soliah.zsh-theme
-    echo "Soliah theme created"
-  else
-    echo "OMZ directory doesn't exist, skipping"
-  fi
-}
+echo "Initializing conda for zsh."
+conda init zsh
 
-function install_zshrc() {
-  echo "Installing plugins..."
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
-  echo "Autosuggestions installed"
+echo "Installing fonts."
+FONT_DIR="$HOME/.fonts"
+git clone https://github.com/powerline/fonts.git $FONT_DIR --depth=1
+cd $FONT_DIR
+./install.sh
 
-  echo "Moving zshrc to root dir..."
-  cat .zshrc > $HOME/.zshrc
-  echo "zshrc moved"
-}
-
-install_fira
-install_theme
-install_zshrc
+echo "Setting up the Spaceship theme."
+ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
