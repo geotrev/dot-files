@@ -1,6 +1,8 @@
 #!/bin/bash
 
 function install_fira() {
+  echo "Installing Fira Code..."
+
   fonts_dir="${HOME}/.local/share/fonts"
   if [ ! -d "${fonts_dir}" ]; then
       echo "mkdir -p $fonts_dir"
@@ -17,15 +19,21 @@ function install_fira() {
 
   echo "fc-cache -f"
   fc-cache -f
+  
+  echo "Fira Code install"
 }
 
 install_fira
 
 # move custom Soliah theme 
+echo "Installing Soliah theme..."
 OMZ_DIR="${HOME}/.oh-my-zsh"
 mv -f Soliah.zsh-theme $OMZ_DIR/themes/Soliah.zsh-theme
+echo "Soliah theme created"
 
+echo "Moving zshrc to root dir..."
 # Move zshrc to codespaces home
 cat .zshrc > $HOME/.zshrc
+echo "zshrc created"
 
 zsh
