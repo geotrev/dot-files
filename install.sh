@@ -34,6 +34,4 @@ echo "Soliah theme created"
 echo "Moving zshrc to root dir..."
 # Move zshrc to codespaces home
 cat .zshrc > $HOME/.zshrc
-echo "zshrc created"
-
-zsh
+echo "zshrc moved"
