@@ -36,8 +36,9 @@ function install_theme() {
 }
 
 function install_zshrc() {
-  echo "Installing autosuggestions..."                
+  echo "Installing plugins..."
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
   echo "Autosuggestions installed"
 
   echo "Moving zshrc to root dir..."
