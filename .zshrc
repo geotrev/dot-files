@@ -1,18 +1,13 @@
-# Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
 
-# Theme
-ZSH_THEME="Soliah"
+# Theme.
+ZSH_THEME="spaceship"
+export SPACESHIP_DIR_TRUNC=0
 
-# Plugins
-plugins=(git zsh-nvm zsh-autosuggestions)
+# Plugins.
+plugins=(git)
 
-# Init OMZ
 source $ZSH/oh-my-zsh.sh
 
-# Aliases
-
-alias amcm="git commit --amend --no-edit"
-alias fopu="git push -f origin"
-alias gpo="git push -u origin HEAD"
-alias so="source ~/.zshrc"
+# Set colors for LS_COLORS.
+eval `dircolors ~/.dircolors`
