@@ -18,9 +18,6 @@ create_symlinks() {
 
 create_symlinks
 
-echo "Initializing conda for zsh."
-conda init zsh
-
 echo "Installing fonts."
 FONT_DIR="$HOME/.fonts"
 git clone https://github.com/powerline/fonts.git $FONT_DIR --depth=1
